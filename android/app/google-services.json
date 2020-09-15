@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "659452624768",
+    "firebase_url": "https://family-tasks-32b39.firebaseio.com",
+    "project_id": "family-tasks-32b39",
+    "storage_bucket": "family-tasks-32b39.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:659452624768:android:e9988bb183f6a5dfad4b65",
+        "android_client_info": {
+          "package_name": "com.example.family_responsibilities"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "659452624768-mga768ccghiikh77deamgg7uddqmv2jh.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCiEgZIeow4fYGUUHZbEpLS28f3C8_FDYY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "659452624768-mga768ccghiikh77deamgg7uddqmv2jh.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
