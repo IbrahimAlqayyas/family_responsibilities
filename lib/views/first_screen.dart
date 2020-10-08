@@ -1,9 +1,11 @@
+import 'package:family_responsibilities/views/user_tasks.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:family_responsibilities/models/task.dart';
 import 'package:family_responsibilities/models/user.dart';
-import 'package:firebase_database/firebase_database.dart';
-
+import 'package:family_responsibilities/views/add_modify_task.dart';
+import 'package:family_responsibilities/views/settings_screen.dart';
+import 'package:family_responsibilities/views/chat_screen.dart';
 
 class FirstScreen extends StatefulWidget {
   @override
@@ -13,45 +15,14 @@ class FirstScreen extends StatefulWidget {
 }
 
 class _FirstScreenState extends State<FirstScreen> {
-  User _user = User();
-  Task _task = Task();
-  List<String> _taskList = [
-    'Fix the car wheel today fix the car wheel today fix the car wheel today',
-    'Fix the car wheel today fix the car wheel today fix the car wheel today',
-    'Fix the car wheel today fix the car wheel today fix the car wheel today',
-    'Fix the car wheel today fix the car wheel today fix the car wheel today',
-    'Fix the car wheel today fix the car wheel today fix the car wheel today',
-    'Fix the car wheel today fix the car wheel today fix the car wheel today',
-    'Fix the car wheel today fix the car wheel today fix the car wheel today',
-    'Fix the car wheel today fix the car wheel today fix the car wheel today',
-    'Fix the car wheel today fix the car wheel today fix the car wheel today',
-    'Fix the car wheel today fix the car wheel today fix the car wheel today',
-    'Fix the car wheel today fix the car wheel today fix the car wheel today',
-    'Fix the car wheel today fix the car wheel today fix the car wheel today',
-    'Fix the car wheel today fix the car wheel today fix the car wheel today',
-    'Fix the car wheel today fix the car wheel today fix the car wheel today',
-    'Fix the car wheel today fix the car wheel today fix the car wheel today',
-    'Fix the car wheel today fix the car wheel today fix the car wheel today',
-    'Fix the car wheel today fix the car wheel today fix the car wheel today'
-  ];
-
-  @override
-  void initState() {
-    _user.userBackgroundColor = 0xFFFFF325; // from the firebase
-    _user.userTextColor = 0xFF000000; // from the firebase
-    _task.taskContent =
-        'Fix the car wheel today fix the car wheel today fix the car wheel today'; // from the firebase
-    super.initState();
-  }
-
   @override
   Widget build(BuildContext context) {
     return Material(
       child: SafeArea(
         child: Scaffold(
           floatingActionButton: FloatingActionButton(
-
-            onPressed: () {/******************/},
+            onPressed: () =>
+                Navigator.push(context, MaterialPageRoute(builder: (context) => AddModifyTask())),
             child: Icon(
               Icons.add,
               color: Colors.white,
@@ -59,8 +30,7 @@ class _FirstScreenState extends State<FirstScreen> {
             ),
             backgroundColor: Colors.red,
           ),
-          floatingActionButtonLocation:
-              FloatingActionButtonLocation.centerDocked,
+          floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
           bottomNavigationBar: BottomAppBar(
             shape: CircularNotchedRectangle(),
             notchMargin: 5.0,
@@ -70,30 +40,36 @@ class _FirstScreenState extends State<FirstScreen> {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 IconButton(
+                  // chat button
                   icon: Icon(Icons.chat, color: Colors.white, size: 30),
-                  onPressed: (){/*******************/},
+                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => ChatScreen())),
                 ),
                 IconButton(
+                  // settings button
                   icon: Icon(Icons.settings, color: Colors.white, size: 30),
-                  onPressed: (){/*******************/},
+                  onPressed: () => Navigator.push(context, MaterialPageRoute(builder: (context) => SettingsScreen())),
                 ),
               ],
             ),
           ),
-          /****************************************************************/
+
+          ///****************************************************************
           body: Container(
-            color: Colors.teal,
+            //color: Colors.teal,
             height: double.infinity,
             width: double.infinity,
             child: Column(
               children: [
-                ///a stack of 3 aligned columns
+                //a stack of 3 aligned columns
                 Expanded(
                   child: Stack(
                     children: [
                       ///column #2 - note list tiles
+                      /// ListView Builder
+                      /*
                       ListView.builder(
                         padding: EdgeInsets.symmetric(horizontal: 50),
+                        itemCount: taskList.length,
                         itemBuilder: (context, index) {
                           return Stack(
                             children: [
@@ -114,7 +90,7 @@ class _FirstScreenState extends State<FirstScreen> {
                                 height: 90,
                                 margin: EdgeInsets.only(top: 12),
                                 decoration: BoxDecoration(
-                                  color: Color(_user.userBackgroundColor),
+                                  color: Colors.white,
                                   borderRadius: BorderRadius.only(
                                     topLeft: Radius.circular(30),
                                     bottomRight: Radius.circular(60),
@@ -123,18 +99,30 @@ class _FirstScreenState extends State<FirstScreen> {
                                 child: LongPressDraggable<Task>(
                                   data: _task,
                                   child: ListTile(
+                                    leading: CircleAvatar(
+                                      child: Text('Ib'),
+                                    ),
                                     title: Align(
                                       alignment: Alignment.center,
                                       child: Text(
-                                        _task.taskContent,
-                                        style: TextStyle(
-                                            fontSize: 18,
-                                            color: Color(_user.userTextColor)
-                                        ),
+                                        '${taskList[index].taskContent}',
+                                        style: TextStyle(fontSize: 18, color: Colors.black),
                                         textAlign: TextAlign.center,
                                       ),
                                     ),
-                                    onTap: () {/**********************/},
+                                    trailing: IconButton(
+                                      icon: Icon(Icons.edit),
+                                      onPressed: () {
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    AddModifyTask(taskId: taskList[index].taskId)));
+                                      },
+                                    ),
+                                    onTap: () {
+                                      /// ////// ListTile Tap Code later /////////
+                                    },
                                   ),
                                   childWhenDragging: Container(
                                     height: 55,
@@ -166,8 +154,8 @@ class _FirstScreenState extends State<FirstScreen> {
                             ],
                           );
                         },
-                        itemCount: _taskList.length,
                       ),
+                      */
 
                       ///column #1 - dad & mom avatars
                       Align(
@@ -180,13 +168,20 @@ class _FirstScreenState extends State<FirstScreen> {
                             Container(
                               height: 65,
                               width: 65,
-                              child: Icon(Icons.person),
                               decoration: BoxDecoration(
-                                  color: Colors.red,
-                                  borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(20),
-                                    bottomRight: Radius.circular(20),
-                                  )),
+                                color: Colors.red,
+                                borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(20),
+                                  bottomRight: Radius.circular(20),
+                                ),
+                              ),
+                              child: IconButton(
+                                icon: Icon(Icons.person),
+                                onPressed: () {
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) => UserTasks()));
+                                },
+                              ),
                             ),
                             Spacer(
                               flex: 1,
@@ -194,13 +189,20 @@ class _FirstScreenState extends State<FirstScreen> {
                             Container(
                               height: 65,
                               width: 65,
-                              child: Icon(Icons.person),
                               decoration: BoxDecoration(
-                                  color: Colors.red,
-                                  borderRadius: BorderRadius.only(
-                                    topRight: Radius.circular(20),
-                                    bottomRight: Radius.circular(20),
-                                  )),
+                                color: Colors.red,
+                                borderRadius: BorderRadius.only(
+                                  topRight: Radius.circular(20),
+                                  bottomRight: Radius.circular(20),
+                                ),
+                              ),
+                              child: IconButton(
+                                icon: Icon(Icons.person),
+                                onPressed: () {
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) => UserTasks()));
+                                },
+                              ),
                             ),
                             Spacer(
                               flex: 2,
@@ -220,41 +222,61 @@ class _FirstScreenState extends State<FirstScreen> {
                             Container(
                               height: 65,
                               width: 65,
-                              child: Icon(Icons.person),
-                              decoration: BoxDecoration(
-                                  color: Colors.red,
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(20),
-                                    bottomLeft: Radius.circular(20),
-                                  )),
-                            ),
-                            Spacer(
-                              flex: 1,
-                            ),
-                            Container(
-                              height: 65,
-                              width: 65,
-                              child: Icon(Icons.person),
-                              decoration: BoxDecoration(
-                                  color: Colors.red,
-                                  borderRadius: BorderRadius.only(
-                                    topLeft: Radius.circular(20),
-                                    bottomLeft: Radius.circular(20),
-                                  )),
-                            ),
-                            Spacer(
-                              flex: 1,
-                            ),
-                            Container(
-                              height: 65,
-                              width: 65,
-                              child: Icon(Icons.person),
                               decoration: BoxDecoration(
                                 color: Colors.red,
                                 borderRadius: BorderRadius.only(
                                   topLeft: Radius.circular(20),
                                   bottomLeft: Radius.circular(20),
                                 ),
+                              ),
+                              child: IconButton(
+                                icon: Icon(Icons.person),
+                                onPressed: () {
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) => UserTasks()));
+                                },
+                              ),
+                            ),
+                            Spacer(
+                              flex: 1,
+                            ),
+                            Container(
+                              height: 65,
+                              width: 65,
+                              decoration: BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  bottomLeft: Radius.circular(20),
+                                ),
+                              ),
+                              child: IconButton(
+                                icon: Icon(Icons.person),
+                                onPressed: () {
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) => UserTasks()));
+                                },
+                              ),
+                            ),
+                            Spacer(
+                              flex: 1,
+                            ),
+                            Container(
+                              height: 65,
+                              width: 65,
+                              decoration: BoxDecoration(
+                                color: Colors.red,
+                                borderRadius: BorderRadius.only(
+                                  topLeft: Radius.circular(20),
+                                  bottomLeft: Radius.circular(20),
+                                ),
+                              ),
+                              child: IconButton(
+                                icon: Icon(Icons.person),
+                                onPressed: () {
+                                  Navigator.push(context,
+                                      MaterialPageRoute(builder: (context) => UserTasks()));
+                                },
                               ),
                             ),
                             Spacer(
@@ -274,3 +296,20 @@ class _FirstScreenState extends State<FirstScreen> {
     );
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
