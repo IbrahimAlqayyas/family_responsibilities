@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:family_responsibilities/views/first_screen.dart';
+import 'package:family_responsibilities/views/home_view.dart';
 import 'package:firebase_core/firebase_core.dart';
 
 
@@ -9,7 +9,8 @@ void main() async {
   runApp(
       MaterialApp(
         title: 'Family Responsibility Organization',
-        home: FirstScreen(),
+        debugShowCheckedModeBanner: false,
+        home: HomeView(),
         //home: AddModifyTask(),
         theme: ThemeData(
           primaryColor: Colors.teal

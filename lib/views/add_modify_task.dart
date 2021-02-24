@@ -1,6 +1,6 @@
 import 'package:family_responsibilities/models/user.dart';
 import 'package:family_responsibilities/models/task.dart';
-import 'package:family_responsibilities/views/first_screen.dart';
+import 'package:family_responsibilities/views/home_view.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

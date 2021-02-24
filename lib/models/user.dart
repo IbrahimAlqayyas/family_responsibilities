@@ -2,10 +2,11 @@ import 'package:flutter/material.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class User {
+  String id;
   String name;
   String type;
 
-  User({@required this.name, @required this.type});
+  User({@required this.id, @required this.name, @required this.type});
 
   // Reading data from the user
   String get userName => name;
@@ -69,7 +70,7 @@ class User {
   List<String> fetchUserList(){
     final userReference = FirebaseFirestore.instance.collection('users');
     userReference.get().then((QuerySnapshot snapshot) {
-      snapshot.docs.singleWhere((element) => false)
+      snapshot.docs.singleWhere((element) => false);
     });
   }
 
